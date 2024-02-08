@@ -4,9 +4,8 @@ import {KanbanItem} from "@/components/task/kanbanItem"
 import { useList, useNavigation, useUpdate } from "@refinedev/core";
 import { TASKS_QUERY, TASK_STAGES_QUERY } from "@/graphql/queries";
 import { useMemo } from "react";
-import { TaskStage } from "@/graphql/schema.types";
 import { GetFieldsFromList } from "@refinedev/nestjs-query";
-import { TasksQuery } from "@/graphql/types";
+import { TaskStagesQuery, TasksQuery } from "@/graphql/types";
 import { TaskCardMemo } from "@/components/task/taskCard";
 import {KanbanAddCardButton} from '@/components/task/add-card-button'
 import KanbanColumnSkeleton from "@/components/skeleton/kanban";
@@ -36,6 +35,13 @@ const PageSkeleton = () => {
 		</KanbanBoardContainer>
 	)
 }
+
+type Task = GetFieldsFromList<TasksQuery>
+
+type TaskStage = GetFieldsFromList<TaskStagesQuery> & {
+	tasks: Task[]
+}
+
 export const TaskList = ({children}: React.PropsWithChildren) => {
 	const {replace} = useNavigation()
 
