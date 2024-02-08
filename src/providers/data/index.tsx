@@ -31,4 +31,4 @@ export const wsClient = typeof window !== 'undefined'
 
 	export const dataProvider = graphqlDataProvider(client)
 
-	export const liveProvider = graphqlLiveProvider(wsClient)
+	export const liveProvider = wsClient ? graphqlLiveProvider(wsClient) : undefined
